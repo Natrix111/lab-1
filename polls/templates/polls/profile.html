@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+
+{% block title %} Профиль {% endblock %}
+
+{% block content %}
+
+  <div class="profile">
+    <h1>Профиль пользователя {{ user.username }}</h1>
+    {% if user.is_superuser %}
+      <p>Вы администратор данного сайта</p>
+    {% else %}
+      <img class="profile__avatar" src="{{ user.avatar.url }}" alt="Аватар пользователя">
+      <p>Имя: {{ user.first_name }}</p>
+      <p>Фамилия: {{ user.last_name }}</p>
+      <p>Логин: {{ user.username }}</p>
+      <p>Почта: {{ user.email }}</p>
+    {% endif %}
+      <div class="profile__buttons">
+        <a class="profile__button" href="{% url 'polls:delete_user' user.id %}">Удалить профиль</a>
+        <a class="profile__button" href="{% url 'polls:update_user' user.id %}">Изменить профиль</a>
+      </div>
+  </div>
+{% endblock %}
